@@ -1,6 +1,9 @@
-/* Aquita — tema PestRaid · interacciones */
+/* Aquita — interacciones + capa WOW (Jean Paul) */
 (function(){
-  // Menú móvil
+  var docEl = document.documentElement;
+  docEl.classList.add('js');
+
+  // ---- Menú móvil ----
   var burger = document.querySelector('.burger');
   var overlay = document.querySelector('.nav-overlay');
   function toggle(){ document.body.classList.toggle('menu-open'); }
@@ -13,10 +16,12 @@
       }
     });
   });
-  // Año dinámico
+
+  // ---- Año dinámico ----
   var y = document.getElementById('year');
   if(y){ y.textContent = new Date().getFullYear(); }
-  // Formularios demo
+
+  // ---- Formularios demo ----
   document.querySelectorAll('form[data-demo]').forEach(function(f){
     f.addEventListener('submit', function(e){
       e.preventDefault();
@@ -24,26 +29,64 @@
       if(ok){ ok.style.display='block'; f.reset(); ok.scrollIntoView({behavior:'smooth',block:'center'}); }
     });
   });
-  // Reveal on scroll
+
+  // ---- Barra de progreso de scroll ----
+  var bar = document.createElement('div');
+  bar.className = 'scroll-progress';
+  document.body.appendChild(bar);
+
+  // ---- Peek (flecha) dentro de las card-photo ----
+  document.querySelectorAll('.card-photo .card-ph').forEach(function(ph){
+    if(!ph.querySelector('.peek')){
+      var s=document.createElement('span'); s.className='peek'; s.textContent='→'; ph.appendChild(s);
+    }
+  });
+
+  var header = document.querySelector('.site-header');
+  var heroCards = document.querySelectorAll('.hero-card, .brand-emblema, .hero.has-bg .wrap > h1');
+  var docH = 0;
+  function calc(){ docH = (document.documentElement.scrollHeight - window.innerHeight) || 1; }
+  calc(); window.addEventListener('resize', calc);
+
+  var ticking=false;
+  function onScroll(){
+    var sy = window.pageYOffset || docEl.scrollTop;
+    // progreso
+    bar.style.width = Math.min(sy/docH*100,100) + '%';
+    // header shrink
+    if(header){ header.classList.toggle('shrink', sy > 40); }
+    // parallax suave del contenido del hero
+    heroCards.forEach(function(el){
+      el.style.transform = 'translate3d(0,'+(sy*0.14)+'px,0)';
+    });
+    ticking=false;
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ requestAnimationFrame(onScroll); ticking=true; }
+  }, {passive:true});
+
+  // ---- Reveal + stagger + acentos con IntersectionObserver ----
+  var animTargets = '.reveal, .grid, .stats, .steps, .section-head, .split';
   if('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+    }, { threshold: 0.12, rootMargin:'0px 0px -8% 0px' });
+    document.querySelectorAll(animTargets).forEach(function(el){ io.observe(el); });
 
-    // Contadores animados (0 -> valor)
+    // Contadores 0 -> valor
     var cio = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
         if(!e.isIntersecting) return;
-        var el = e.target, target = parseInt(el.getAttribute('data-count'),10), suf = el.getAttribute('data-suffix')||'', dur=1400, t0=null;
-        function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1); el.textContent = Math.floor(p*target)+suf; if(p<1) requestAnimationFrame(step); }
-        requestAnimationFrame(step);
-        cio.unobserve(el);
+        var el=e.target, target=parseInt(el.getAttribute('data-count'),10), suf=el.getAttribute('data-suffix')||'', dur=1600, t0=null;
+        function step(ts){ if(!t0)t0=ts; var p=Math.min((ts-t0)/dur,1); var eased=1-Math.pow(1-p,3); el.textContent=Math.floor(eased*target)+suf; if(p<1) requestAnimationFrame(step); }
+        requestAnimationFrame(step); cio.unobserve(el);
       });
     }, { threshold: 0.5 });
     document.querySelectorAll('[data-count]').forEach(function(el){ cio.observe(el); });
   } else {
-    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    document.querySelectorAll(animTargets).forEach(function(el){ el.classList.add('in'); });
     document.querySelectorAll('[data-count]').forEach(function(el){ el.textContent = el.getAttribute('data-count')+(el.getAttribute('data-suffix')||''); });
   }
+
+  onScroll();
 })();
