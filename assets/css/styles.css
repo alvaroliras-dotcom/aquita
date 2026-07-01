@@ -465,3 +465,48 @@ html:not(.js) .reveal{opacity:1;transform:none}
   .grid.in>*,.stats.in>*,.steps.in>*{animation:none}
   .scroll-progress{display:none}
 }
+
+/* =========================================================
+   AQUITA v5 · logos, sellos y FALDONES de color (Jean Paul)
+   ========================================================= */
+
+/* ---- Logo cabecera y footer al doble ---- */
+.brand img{height:82px}
+.site-header.shrink .brand img{height:60px}
+.nav{min-height:96px}
+.site-header.shrink .nav{min-height:76px}
+.site-footer .flogo{height:88px}
+@media(max-width:680px){.brand img{height:60px} .site-header.shrink .brand img{height:48px} .nav{min-height:74px}}
+
+/* ---- Sellos de la banda: que ANECPLA quepa entero ---- */
+.stat .n{font-size:clamp(1.5rem,2.6vw,2.15rem);letter-spacing:-.02em;word-break:normal;overflow-wrap:break-word}
+.stats.cols-4{gap:1rem}
+
+/* ---- FALDONES: bloque de cierre centrado, color de marca, rompe la maqueta ---- */
+.faldon{color:#fff;text-align:center;padding:clamp(3.4rem,7vw,5.8rem) 0;position:relative;overflow:hidden;margin:0}
+.faldon.verde{background:linear-gradient(140deg,var(--verde-osc) 0%,var(--verde) 100%)}
+.faldon.naranja{background:linear-gradient(140deg,#c26a06 0%,var(--naranja) 100%)}
+.faldon .wrap{position:relative;z-index:2}
+.faldon .section-head{margin:0 auto 1.1rem;max-width:60ch}
+.faldon .title,.faldon h2{color:#fff}
+.faldon .eyebrow{background:rgba(255,255,255,.2);color:#fff;border:0}
+.faldon .prose{max-width:64ch;margin:0 auto;column-count:1!important;column-width:auto!important;color:rgba(255,255,255,.95);font-size:1.05rem;text-align:center}
+.faldon .prose p{max-width:64ch;margin:0 auto .8rem}
+.faldon .prose strong{color:#fff}
+.faldon .prose a{color:#fff;text-decoration:underline}
+.faldon::before{content:"";position:absolute;right:-50px;bottom:-70px;width:300px;height:300px;background:url('/assets/img/isotipo.svg') no-repeat center/contain;opacity:.09;filter:brightness(0) invert(1);pointer-events:none;transform:rotate(-6deg)}
+.faldon.naranja::before{left:-50px;right:auto;transform:rotate(8deg)}
+
+/* Utilidad de centrado para bloques concretos */
+.center-block{text-align:center}
+.center-block .prose,.center-block .prose p{margin-left:auto;margin-right:auto;text-align:center;max-width:60ch;column-count:1!important;column-width:auto!important}
+.center-block .section-head{margin-left:auto;margin-right:auto}
+
+/* Sellos y tarjetas dentro de un faldón */
+.faldon .stats .stat,.faldon .grid .trust-card,.faldon .card{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.22)}
+.faldon .stat .n{color:#fff}
+.faldon .stat .l,.faldon .card p,.faldon .trust-card p{color:rgba(255,255,255,.88)}
+.faldon .trust-card .ico{background:rgba(255,255,255,.16)}
+.faldon .trust-card .ico img{filter:brightness(0) invert(1)}
+.faldon .k,.faldon .trust-card .k{color:#fff}
+.faldon .stat::before,.faldon .stat:hover{box-shadow:none}
