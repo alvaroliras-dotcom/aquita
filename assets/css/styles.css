@@ -510,3 +510,32 @@ html:not(.js) .reveal{opacity:1;transform:none}
 .faldon .trust-card .ico img{filter:brightness(0) invert(1)}
 .faldon .k,.faldon .trust-card .k{color:#fff}
 .faldon .stat::before,.faldon .stat:hover{box-shadow:none}
+
+/* =========================================================
+   AQUITA v6 · FALDONES: contraste total (Jean Paul)
+   Toda la tipografía en blanco sobre verde/naranja.
+   ========================================================= */
+.faldon,
+.faldon h1,.faldon h2,.faldon h3,.faldon h4,
+.faldon p,.faldon li,.faldon span,.faldon td,.faldon div,
+.faldon strong,.faldon b,.faldon em,
+.faldon .title,.faldon .lead,.faldon .eyebrow,
+.faldon .k,.faldon .l,.faldon .n,
+.faldon .prose,.faldon .prose *,
+.faldon .card,.faldon .card *,
+.faldon .stat,.faldon .stat *,
+.faldon .trust-card,.faldon .trust-card *{color:#fff !important}
+
+.faldon a:not(.btn){color:#fff !important;text-decoration:underline}
+.faldon .eyebrow{background:rgba(255,255,255,.2) !important}
+.faldon .card,.faldon .stat,.faldon .trust-card{background:rgba(255,255,255,.12) !important;border-color:rgba(255,255,255,.25) !important}
+.faldon .trust-card .ico,.faldon .card .ico{background:rgba(255,255,255,.18) !important}
+.faldon .trust-card .ico img,.faldon .card .ico img,.faldon .stat .ico img{filter:brightness(0) invert(1) !important}
+/* botones dentro de faldón: legibles */
+.faldon .btn-primary{background:#fff !important;color:var(--verde-osc) !important}
+.faldon .btn-ghost,.faldon .btn-tel{border-color:rgba(255,255,255,.6) !important;color:#fff !important}
+
+/* Faldón con texto a dos columnas (p.ej. "¿No sabes qué tratamiento?") */
+.faldon .prose-2col{max-width:70ch;column-count:2;column-gap:2.6rem;text-align:left}
+.faldon .prose-2col p{break-inside:avoid;text-align:left}
+@media(max-width:680px){.faldon .prose-2col{column-count:1;text-align:center}.faldon .prose-2col p{text-align:center}}
