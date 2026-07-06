@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Aquita">
+  <!-- Hoja naranja -->
+  <path d="M50 6 C26 14 12 33 12 54 c0 14 7 27 19 34 C28 74 30 55 42 42 C52 31 51 17 50 6 Z" fill="#F59B09"/>
+  <!-- Hoja verde -->
+  <path d="M50 94 C74 86 88 67 88 46 c0-14-7-27-19-34 C72 26 70 45 58 58 C48 69 49 83 50 94 Z" fill="#7AA134"/>
+  <!-- Punto de unión -->
+  <circle cx="50" cy="50" r="6" fill="#ffffff"/>
+  <circle cx="50" cy="50" r="3.4" fill="#7AA134"/>
+</svg>
