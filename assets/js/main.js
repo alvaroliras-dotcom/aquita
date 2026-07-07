@@ -15,6 +15,20 @@
     overlay.setAttribute('aria-hidden','true');
     document.body.appendChild(overlay);
   }
+  // "Pide presupuesto" se oculta en la barra superior en móvil (empujaba la
+  // hamburguesa fuera de pantalla). Lo insertamos arriba del menú desplegable
+  // para no perder la llamada a la acción. En escritorio queda oculto (CSS).
+  var navLinks = document.querySelector('.nav-links');
+  if(navLinks && !navLinks.querySelector('.nav-cta-mobile')){
+    var liCta = document.createElement('li');
+    liCta.className = 'nav-cta-mobile';
+    var aCta = document.createElement('a');
+    aCta.className = 'btn btn-primary';
+    aCta.href = '/presupuesto/';
+    aCta.textContent = 'Pide presupuesto';
+    liCta.appendChild(aCta);
+    navLinks.insertBefore(liCta, navLinks.firstChild);
+  }
   function setMenu(open){
     document.body.classList.toggle('menu-open', open);
     if(burger){ burger.setAttribute('aria-expanded', open ? 'true' : 'false'); }
