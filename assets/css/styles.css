@@ -288,8 +288,24 @@ a.card:hover .more::after{transform:translateX(5px)}
   .submenu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:0;border-left:2px solid var(--verde-claro);border-radius:0;margin:.1rem 0 .4rem .7rem;padding:.2rem 0}
   .has-sub>a::after{float:right}
   .nav-cta .btn:not(.btn-primary){display:none}
-  .nav-overlay{position:fixed;inset:0;background:rgba(20,26,14,.5);opacity:0;visibility:hidden;transition:var(--t);z-index:55}
+  .nav-overlay{position:fixed;inset:0;background:rgba(20,26,14,.5);opacity:0;visibility:hidden;transition:var(--t);z-index:90}
   body.menu-open .nav-overlay{opacity:1;visibility:visible}
+  /* --- FIX menú móvil ---
+     El header tenía backdrop-filter:blur(). Cualquier filter/backdrop-filter
+     convierte al elemento en bloque contenedor de sus hijos position:fixed,
+     así que el drawer (.nav-links, fixed) se anclaba al header y se aplastaba
+     a la altura de la cabecera (~80px) en vez de ocupar toda la pantalla:
+     por eso "no se desplegaba". Quitamos el filtro en móvil/tablet (donde el
+     drawer se usa) y el fixed vuelve a resolverse contra el viewport. */
+  .site-header{backdrop-filter:none;-webkit-backdrop-filter:none;background:#fff}
+  body.menu-open{overflow:hidden}                  /* bloquea el scroll del fondo */
+  /* El overlay (.nav-overlay, z-index:90) cuelga del body. Para que el drawer
+     y la hamburguesa queden por ENCIMA del fondo oscuro, subimos el contexto
+     del header por encima del overlay al abrir. Así se dima la página y la
+     barra inferior (.mobile-cta, z-index:70) pero no el propio menú. */
+  body.menu-open .site-header{z-index:100}
+  .nav-links{z-index:2}                             /* drawer sobre la barra del header */
+  .burger{position:relative;z-index:3}              /* la X sigue pulsable para cerrar */
 }
 @media(max-width:680px){
   .grid.cols-2,.grid.cols-3,.grid.cols-4,.stats{grid-template-columns:1fr}
