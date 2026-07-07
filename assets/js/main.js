@@ -6,13 +6,29 @@
   // ---- Menú móvil ----
   var burger = document.querySelector('.burger');
   var overlay = document.querySelector('.nav-overlay');
-  function toggle(){ document.body.classList.toggle('menu-open'); }
+  // El overlay ya viene en el HTML (a nivel de body). Red de seguridad por si
+  // alguna página no lo trajera: lo creamos en el mismo sitio para no romper
+  // el z-index.
+  if(!overlay){
+    overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    overlay.setAttribute('aria-hidden','true');
+    document.body.appendChild(overlay);
+  }
+  function setMenu(open){
+    document.body.classList.toggle('menu-open', open);
+    if(burger){ burger.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  }
+  function toggle(){ setMenu(!document.body.classList.contains('menu-open')); }
   if(burger){ burger.addEventListener('click', toggle); }
-  if(overlay){ overlay.addEventListener('click', toggle); }
+  overlay.addEventListener('click', function(){ setMenu(false); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'Escape' || e.key === 'Esc') && document.body.classList.contains('menu-open')){ setMenu(false); }
+  });
   document.querySelectorAll('.nav-links a').forEach(function(a){
     a.addEventListener('click', function(){
       if(document.body.classList.contains('menu-open') && !a.parentElement.classList.contains('has-sub')){
-        document.body.classList.remove('menu-open');
+        setMenu(false);
       }
     });
   });
