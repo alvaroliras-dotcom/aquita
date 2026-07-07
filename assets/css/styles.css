@@ -72,6 +72,7 @@ p{margin:0 0 1rem}
 .submenu a{display:block;padding:.6rem .8rem;border-radius:7px;font-size:.9rem;color:var(--gris);font-weight:500}
 .submenu a:hover{background:var(--verde-claro);color:var(--verde-osc)}
 .nav-cta{display:flex;align-items:center;gap:.6rem}
+.nav-cta-mobile{display:none}
 
 /* botones */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--display);font-weight:700;font-size:.86rem;padding:.85rem 1.6rem;border-radius:50px;border:2px solid transparent;cursor:pointer;transition:var(--t);white-space:nowrap;line-height:1}
@@ -287,7 +288,9 @@ a.card:hover .more::after{transform:translateX(5px)}
   .nav-links>li>a{padding:.9rem .6rem;font-size:1rem}
   .submenu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:0;border-left:2px solid var(--verde-claro);border-radius:0;margin:.1rem 0 .4rem .7rem;padding:.2rem 0}
   .has-sub>a::after{float:right}
-  .nav-cta .btn:not(.btn-primary){display:none}
+  .nav-cta .btn{display:none}                       /* logo + hamburguesa solamente: así la hamburguesa nunca se sale */
+  .nav-cta-mobile{display:block;margin-bottom:.5rem}
+  .nav-cta-mobile .btn{display:flex;width:100%;justify-content:center;padding:.9rem 1rem;font-size:.95rem}
   .nav-overlay{position:fixed;inset:0;background:rgba(20,26,14,.5);opacity:0;visibility:hidden;transition:var(--t);z-index:90}
   body.menu-open .nav-overlay{opacity:1;visibility:visible}
   /* --- FIX menú móvil ---
